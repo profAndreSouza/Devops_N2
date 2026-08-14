@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}{{ result.title }} | Devops N2{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm mb-3">
+        <i class="bi bi-arrow-left"></i> Voltar ao Dashboard
+    </a>
+    
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 bg-dark p-4 rounded-3 border border-secondary">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge bg-primary fs-6">Tarefa #{{ "%02d"|format(task_info.id) }}</span>
+                <span class="badge badge-module">{{ task_info.module }}</span>
+                <span class="badge badge-status-done"><i class="bi bi-check-circle-fill"></i> Ativo</span>
+            </div>
+            <h1 class="h3 text-white fw-bold mb-1">{{ result.title }}</h1>
+            <p class="text-info small mb-0"><i class="bi bi-person-fill me-1"></i>Desenvolvido por: <strong>{{ task_info.student }}</strong></p>
+        </div>
+
+        <form method="GET" action="{{ url_for('run_task_page', task_id=task_info.id) }}" class="d-flex align-items-center gap-2">
+            <select name="dataset" class="form-select bg-dark text-white border-secondary" onchange="this.form.submit()">
+                {% for ds_key, ds_name in datasets.items() %}
+                    <option value="{{ ds_key }}" {% if ds_key == selected_dataset %}selected{% endif %}>
+                        {{ ds_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+</div>
+
+<!-- Descrição da Funcionalidade -->
+<div class="alert alert-dark border-secondary text-light mb-4">
+    <i class="bi bi-info-circle-fill text-info me-2"></i> {{ result.description }}
+</div>
+
+<!-- Métricas Extraídas -->
+{% if result.metrics %}
+<h4 class="h5 text-white mb-3"><i class="bi bi-speedometer text-warning me-2"></i>Métricas de Desempenho & Diagnóstico</h4>
+<div class="row g-3 mb-4">
+    {% for key, val in result.metrics.items() %}
+    <div class="col-6 col-md-3">
+        <div class="metric-card">
+            <div class="metric-title">{{ key }}</div>
+            <div class="metric-num">{{ val }}</div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Gráficos Plotly -->
+{% if result.plots %}
+<h4 class="h5 text-white mb-3"><i class="bi bi-bar-chart-fill text-success me-2"></i>Visualizações Interativas (Plotly)</h4>
+<div class="row g-4 mb-4">
+    {% for plot in result.plots %}
+    <div class="col-12">
+        <div class="card bg-dark border-secondary p-3">
+            <div id="plotly-plot-{{ loop.index }}" style="width:100%; height:450px;"></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Tabelas de Resultados -->
+{% if result.tables %}
+<h4 class="h5 text-white mb-3"><i class="bi bi-table text-primary me-2"></i>Dados & Tabelas de Saída</h4>
+<div class="row g-4 mb-4">
+    {% for table in result.tables %}
+    <div class="col-12">
+        <div class="card bg-dark border-secondary p-3">
+            <div class="table-responsive">
+                {{ table | safe }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% if result.plots %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        {% for plot in result.plots %}
+            renderPlotlyGraph("plotly-plot-{{ loop.index }}", {{ plot | safe }});
+        {% endfor %}
+    });
+</script>
+{% endif %}
+{% endblock %}
