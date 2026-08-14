@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% set active_page = 'tasks' %}
+
+{% block title %}Tarefas Públicas (37 Alunos) | Ciência de Dados Flask{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h2 text-white fw-bold mb-1"><i class="bi bi-journal-code text-primary me-2"></i>Diretório de Tarefas Públicas</h1>
+        <p class="text-muted mb-0">Lista pública e transparente das 37 atribuições individuais para os alunos da turma.</p>
+    </div>
+    <a href="{{ url_for('view_tasks_doc') }}" target="_blank" class="btn btn-outline-info d-flex align-items-center gap-2">
+        <i class="bi bi-markdown-fill"></i> Ver TASKS.md Completo
+    </a>
+</div>
+
+<!-- Filtro e Contrato -->
+<div class="row g-4 mb-4">
+    <div class="col-md-8">
+        <div class="card bg-dark border-secondary h-100">
+            <div class="card-body">
+                <h5 class="card-title text-info fw-bold"><i class="bi bi-code-square me-2"></i>Contrato Técnico Unificado Python</h5>
+                <p class="text-secondary small mb-2">Cada aluno deve obrigatoriamente implementar a função <code>run_feature(df, params=None)</code> no seu respetivo módulo na pasta <code>features/</code>:</p>
+                <pre class="bg-black text-light p-3 rounded small border border-secondary mb-0"><code>def run_feature(df, params=None):
+    # Processamento de Dados (Pandas, Scikit-learn, etc.)
+    return {
+        "title": "Nome da Feature",
+        "description": "Explicação dos resultados",
+        "metrics": {"Métrica": 0.95},
+        "tables": [df_resultado.to_html(classes="table table-striped")],
+        "plots": [figura_plotly.to_json()]
+    }</code></pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-dark border-secondary h-100 d-flex flex-column justify-content-center p-3 text-center">
+            <h6 class="text-muted text-uppercase mb-2">Busca de Tarefa</h6>
+            <input type="text" id="taskSearchInput" class="form-control bg-dark text-white border-secondary mb-3" placeholder="Filtrar por aluno, módulo ou título...">
+            <span class="badge bg-primary fs-6 py-2">Total: 37 Tarefas Alocadas</span>
+        </div>
+    </div>
+</div>
+
+<!-- Tabela Pública com as 37 Tarefas -->
+<div class="card bg-dark border-secondary">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead class="table-secondary">
+                    <tr>
+                        <th class="ps-3">ID</th>
+                        <th>Aluno Responsável</th>
+                        <th>Módulo de Ciência de Dados</th>
+                        <th>Arquivo Python (`features/`)</th>
+                        <th>Descrição da Feature</th>
+                        <th class="text-end pe-3">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks_list %}
+                    <tr class="task-item-card">
+                        <td class="ps-3 fw-bold text-primary">#{{ "%02d"|format(task.id) }}</td>
+                        <td class="fw-semibold text-white"><i class="bi bi-person-circle text-info me-1"></i>{{ task.student }}</td>
+                        <td><span class="badge badge-module">{{ task.module }}</span></td>
+                        <td><code class="text-warning">features/task_{{ "%02d"|format(task.id) }}_*.py</code></td>
+                        <td class="text-secondary small">{{ task.description }}</td>
+                        <td class="text-end pe-3">
+                            <a href="{{ url_for('run_task_page', task_id=task.id) }}" class="btn btn-sm btn-outline-success">
+                                Testar <i class="bi bi-play-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
