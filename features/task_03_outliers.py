@@ -1,32 +1,34 @@
-import plotly.express as px
-import pandas as pd
-import numpy as np
+"""
+Tarefa 03: Detecção e Filtro de Outliers
+Módulo: Ingestão & Limpeza
+Aluno Responsável: Arthur Faria E Silva
+
+Instruções para o Aluno (Arthur Faria E Silva):
+1. Utilize o DataFrame `df` recebido como parâmetro de entrada.
+2. Objetivo: Detectar e filtrar outliers estatísticos utilizando Z-Score e Intervalo Interquartil (IQR).
+3. Desenvolva sua lógica utilizando Python, Pandas, Scikit-learn, Plotly, etc.
+4. Retorne um dicionário no formato exato:
+   {
+       "title": "Tarefa 03 - Detecção e Filtro de Outliers",
+       "description": "Explicação breve do que seu código realizou.",
+       "metrics": {"Métrica 1": valor1, "Métrica 2": valor2},
+       "tables": [df_resultado.to_html(classes="table table-striped")],
+       "plots": [figura_plotly.to_json()]
+   }
+"""
 
 def run_feature(df, params=None):
-    """
-    Tarefa 03: Detecção e Filtro de Outliers
-    Aluno Responsável: Aluno 03
-    """
     params = params or {}
-    numeric_cols = list(df.select_dtypes(include=['number']).columns)
     
-    summary_df = df.describe().T.reset_index().round(2) if len(numeric_cols) > 0 else df.head(10)
+    # TODO (Arthur Faria E Silva): Desenvolva aqui a lógica da sua funcionalidade.
     
-    if len(numeric_cols) >= 2:
-        fig = px.scatter(df, x=numeric_cols[0], y=numeric_cols[1], title=f"Visualização de {numeric_cols[0]} vs {numeric_cols[1]}", color_discrete_sequence=px.colors.qualitative.Plotly)
-    elif len(numeric_cols) == 1:
-        fig = px.histogram(df, x=numeric_cols[0], title=f"Histograma de {numeric_cols[0]}", color_discrete_sequence=px.colors.qualitative.Plotly)
-    else:
-        fig = px.bar(df.head(10), x=df.columns[0], title="Visualização Geral")
-
     return {
         "title": "Tarefa 03 - Detecção e Filtro de Outliers",
-        "description": "Módulo desenvolvido por Aluno 03 focado em Detecção e Filtro de Outliers.",
+        "description": "Atividade aguardando implementação pelo(a) aluno(a) Arthur Faria E Silva.",
         "metrics": {
-            "Linhas Processadas": len(df),
-            "Colunas Disponíveis": len(df.columns),
-            "Status": "Ativo / Operacional"
+            "Aluno Responsável": "Arthur Faria E Silva",
+            "Status": "Pendente de Implementação"
         },
-        "tables": [summary_df.head(10).to_html(classes="table table-hover table-striped table-sm", index=False)],
-        "plots": [fig.to_json()]
+        "tables": [],
+        "plots": []
     }
