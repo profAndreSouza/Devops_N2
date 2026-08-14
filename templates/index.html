@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% set active_page = 'index' %}
+
+{% block title %}Dashboard Hub | Ciência de Dados Flask{% endblock %}
+
+{% block content %}
+<div class="hero-banner d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+    <div>
+        <h1 class="display-6 fw-bold text-white mb-2">Plataforma de Ciência de Dados</h1>
+        <p class="lead text-muted mb-0">Projeto Integrado: <strong>1 Professor + 37 Alunos</strong> desenvolvendo um pipeline completo de Machine Learning em Python.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('public_tasks') }}" class="btn btn-primary btn-lg px-4 d-flex align-items-center gap-2">
+            <i class="bi bi-list-task"></i> Ver 37 Tarefas Públicas
+        </a>
+    </div>
+</div>
+
+<!-- Métricas e Estatísticas Globais -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-value">37</div>
+            <div class="stat-label">Tarefas de Alunos</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-value text-success">37</div>
+            <div class="stat-label">Features Operacionais</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-value text-info">6</div>
+            <div class="stat-label">Datasets Integrados</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-value text-warning">8</div>
+            <div class="stat-label">Módulos de ML & EDA</div>
+        </div>
+    </div>
+</div>
+
+<!-- Seletor de Dataset Global -->
+<div class="card bg-dark border-secondary mb-4">
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('index') }}" class="row align-items-center g-3">
+            <div class="col-md-4">
+                <label for="datasetSelect" class="form-label text-white fw-bold mb-0">
+                    <i class="bi bi-database-fill text-info"></i> Conjunto de Dados Selecionado:
+                </label>
+            </div>
+            <div class="col-md-6">
+                <select id="datasetSelect" name="dataset" class="form-select bg-dark text-white border-secondary" onchange="this.form.submit()">
+                    {% for ds_key, ds_name in datasets.items() %}
+                        <option value="{{ ds_key }}" {% if ds_key == selected_dataset %}selected{% endif %}>
+                            {{ ds_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2 text-end">
+                <span class="badge bg-secondary px-3 py-2">Linhas: {{ dataset_rows }}</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Barra de Busca de Tarefas -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="h4 text-white mb-0"><i class="bi bi-grid-3x3-gap-fill text-primary me-2"></i>Hub das 37 Features dos Alunos</h3>
+    <div class="w-25">
+        <input type="text" id="taskSearchInput" class="form-control bg-dark text-white border-secondary" placeholder="Buscar aluno ou recurso...">
+    </div>
+</div>
+
+<!-- Grid dos 37 Alunos -->
+<div class="row g-3">
+    {% for task in tasks_list %}
+    <div class="col-md-6 col-lg-4 task-item-card">
+        <div class="task-card">
+            <div>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="badge-module">Módulo: {{ task.module }}</span>
+                    <span class="badge badge-status-done"><i class="bi bi-check-circle-fill"></i> Ativo</span>
+                </div>
+                <h5 class="text-white fw-bold h6 mb-1">
+                    Tarefa {{ "%02d"|format(task.id) }}: {{ task.title }}
+                </h5>
+                <p class="text-muted small mb-2"><i class="bi bi-person-fill text-info me-1"></i>{{ task.student }}</p>
+                <p class="text-secondary small line-clamp-2 mb-3">{{ task.description }}</p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+                <small class="text-muted"><code>task_{{ "%02d"|format(task.id) }}_*.py</code></small>
+                <a href="{{ url_for('run_task_page', task_id=task.id, dataset=selected_dataset) }}" class="btn btn-outline-primary btn-sm">
+                    Executar Feature <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
