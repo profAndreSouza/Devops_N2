@@ -1,32 +1,34 @@
-import plotly.express as px
-import pandas as pd
-import numpy as np
+"""
+Tarefa 04: Limpeza de Duplicadas e Formatador
+Módulo: Ingestão & Limpeza
+Aluno Responsável: Bianca Cirilo
+
+Instruções para o Aluno (Bianca Cirilo):
+1. Utilize o DataFrame `df` recebido como parâmetro de entrada.
+2. Objetivo: Remover registros duplicados e formatar nomes de colunas.
+3. Desenvolva sua lógica utilizando Python, Pandas, Scikit-learn, Plotly, etc.
+4. Retorne um dicionário no formato exato:
+   {
+       "title": "Tarefa 04 - Limpeza de Duplicadas e Formatador",
+       "description": "Explicação breve do que seu código realizou.",
+       "metrics": {"Métrica 1": valor1, "Métrica 2": valor2},
+       "tables": [df_resultado.to_html(classes="table table-striped")],
+       "plots": [figura_plotly.to_json()]
+   }
+"""
 
 def run_feature(df, params=None):
-    """
-    Tarefa 04: Limpeza de Duplicadas e Formatador
-    Aluno Responsável: Aluno 04
-    """
     params = params or {}
-    numeric_cols = list(df.select_dtypes(include=['number']).columns)
     
-    summary_df = df.describe().T.reset_index().round(2) if len(numeric_cols) > 0 else df.head(10)
+    # TODO (Bianca Cirilo): Desenvolva aqui a lógica da sua funcionalidade.
     
-    if len(numeric_cols) >= 2:
-        fig = px.scatter(df, x=numeric_cols[0], y=numeric_cols[1], title=f"Visualização de {numeric_cols[0]} vs {numeric_cols[1]}", color_discrete_sequence=px.colors.qualitative.Plotly)
-    elif len(numeric_cols) == 1:
-        fig = px.histogram(df, x=numeric_cols[0], title=f"Histograma de {numeric_cols[0]}", color_discrete_sequence=px.colors.qualitative.Plotly)
-    else:
-        fig = px.bar(df.head(10), x=df.columns[0], title="Visualização Geral")
-
     return {
         "title": "Tarefa 04 - Limpeza de Duplicadas e Formatador",
-        "description": "Módulo desenvolvido por Aluno 04 focado em Limpeza de Duplicadas e Formatador.",
+        "description": "Atividade aguardando implementação pelo(a) aluno(a) Bianca Cirilo.",
         "metrics": {
-            "Linhas Processadas": len(df),
-            "Colunas Disponíveis": len(df.columns),
-            "Status": "Ativo / Operacional"
+            "Aluno Responsável": "Bianca Cirilo",
+            "Status": "Pendente de Implementação"
         },
-        "tables": [summary_df.head(10).to_html(classes="table table-hover table-striped table-sm", index=False)],
-        "plots": [fig.to_json()]
+        "tables": [],
+        "plots": []
     }
