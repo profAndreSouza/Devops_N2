@@ -1,42 +1,34 @@
-import plotly.express as px
-import pandas as pd
+"""
+Tarefa 01: Inspeção de Schema & Tipos de Dados
+Módulo: Ingestão & Limpeza
+Aluno Responsável: Ahslam Mendes Monteiro Dias
+
+Instruções para o Aluno (Ahslam Mendes Monteiro Dias):
+1. Utilize o DataFrame `df` recebido como parâmetro de entrada.
+2. Objetivo: Inspecionar tipos de dados, contagem de nulos e dimensões do DataFrame.
+3. Desenvolva sua lógica utilizando Python, Pandas, Scikit-learn, Plotly, etc.
+4. Retorne um dicionário no formato exato:
+   {
+       "title": "Tarefa 01 - Inspeção de Schema & Tipos de Dados",
+       "description": "Explicação breve do que seu código realizou.",
+       "metrics": {"Métrica 1": valor1, "Métrica 2": valor2},
+       "tables": [df_resultado.to_html(classes="table table-striped")],
+       "plots": [figura_plotly.to_json()]
+   }
+"""
 
 def run_feature(df, params=None):
-    """
-    Tarefa 01: Visualizador de Schema e Tipos de Dados
-    Aluno Responsável: Aluno 01
-    """
     params = params or {}
     
-    # Informações do Schema
-    total_rows, total_cols = df.shape
-    missing_total = int(df.isnull().sum().sum())
-    numeric_cols = list(df.select_dtypes(include=['number']).columns)
-    cat_cols = list(df.select_dtypes(include=['object', 'category']).columns)
-    
-    schema_df = pd.DataFrame({
-        "Coluna": df.columns,
-        "Tipo de Dado": [str(dtype) for dtype in df.dtypes],
-        "Valores Nulos": df.isnull().sum().values,
-        "% Nulos": (df.isnull().mean() * 100).round(2).values,
-        "Valores Únicos": [df[col].nunique() for col in df.columns]
-    })
-    
-    # Gráfico de Tipos de Dados
-    type_counts = pd.Series([str(d) for d in df.dtypes]).value_counts().reset_index()
-    type_counts.columns = ["Tipo", "Quantidade"]
-    fig = px.pie(type_counts, names="Tipo", values="Quantidade", title="Distribuição de Tipos de Dados", color_discrete_sequence=px.colors.qualitative.Set2)
+    # TODO (Ahslam Mendes Monteiro Dias): Desenvolva aqui a lógica da sua funcionalidade.
     
     return {
         "title": "Tarefa 01 - Inspeção de Schema & Tipos de Dados",
-        "description": "Análise estrutural das colunas, tipos primitivos e verificação primária de integridade.",
+        "description": "Atividade aguardando implementação pelo(a) aluno(a) Ahslam Mendes Monteiro Dias.",
         "metrics": {
-            "Total de Linhas": total_rows,
-            "Total de Colunas": total_cols,
-            "Colunas Numéricas": len(numeric_cols),
-            "Colunas Categóricas": len(cat_cols),
-            "Valores Ausentes Globais": missing_total
+            "Aluno Responsável": "Ahslam Mendes Monteiro Dias",
+            "Status": "Pendente de Implementação"
         },
-        "tables": [schema_df.to_html(classes="table table-hover table-bordered table-sm", index=False)],
-        "plots": [fig.to_json()]
+        "tables": [],
+        "plots": []
     }
