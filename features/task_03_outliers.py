@@ -20,7 +20,20 @@ Instruções para o Aluno (Arthur Faria E Silva):
 def run_feature(df, params=None):
     params = params or {}
     
-    # TODO (Arthur Faria E Silva): Desenvolva aqui a lógica da sua funcionalidade.
+    # TODO : Implementar a lógica de detecção e filtro de outliers utilizando Z-Score e IQR.
+
+    Q1 = df['nome_da_coluna'].quantile(0.25)
+    Q3 = df['nome_da_coluna'].quantile(0.75)
+    IQR = Q3 - Q1
+
+    # Definindo os limites
+    limite_inferior = Q1 - 1.5 * IQR
+    limite_superior = Q3 + 1.5 * IQR
+
+# Filtrando e mostrando apenas os outliers
+    outliers = df[(df['nome_da_coluna'] < limite_inferior) | (df['nome_da_coluna'] > limite_superior)]
+    print(outliers)
+
     
     return {
         "title": "Tarefa 03 - Detecção e Filtro de Outliers",
