@@ -1,3 +1,9 @@
+import time
+
+print("Essa é a Task do JC, favor não alterar nada!")
+time.sleep(2)
+print("Senão... irei te achar!")
+
 """
 Tarefa 22: Regressão Linear & Ridge
 Módulo: ML Regressão
