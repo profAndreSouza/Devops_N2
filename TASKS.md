@@ -81,7 +81,7 @@ def run_feature(df, params=None):
 
 1. Suba a aplicação via Docker Compose:
    ```bash
-   docker-compose up --build
+    docker-compose up --build
    ```
 2. Ou via Python local:
    ```bash
