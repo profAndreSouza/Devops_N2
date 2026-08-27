@@ -38,7 +38,7 @@ import plotly.express as px
 
 def tarefa_05(df):
     """
-    Tarefa 05 - Codificação Categórica (One-Hot & Label)
+    Tarefa 05 - Codificação Categorica (One-Hot & Label)
 
     Realiza One-Hot Encoding nas variáveis categóricas
     do DataFrame recebido.
@@ -51,6 +51,7 @@ def tarefa_05(df):
     colunas_categoricas = df_resultado.select_dtypes(
         include=["object", "category", "bool"]
     ).columns.tolist()
+
 
     # Quantidade de colunas antes da codificação
     colunas_antes = df_resultado.shape[1]
