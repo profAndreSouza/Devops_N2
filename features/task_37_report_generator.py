@@ -16,19 +16,4 @@ Instruções para o Aluno (Vitor Fazano):
        "plots": [figura_plotly.to_json()]
    }
 """
-
-def run_feature(df, params=None):
-    params = params or {}
-    
-    # TODO (Vitor Fazano): Desenvolva aqui a lógica da sua funcionalidade.
-    
-    return {
-        "title": "Tarefa 37 - Gerador de Relatórios Automatizado",
-        "description": "Atividade aguardando implementação pelo(a) aluno(a) Vitor Fazano.",
-        "metrics": {
-            "Aluno Responsável": "Vitor Fazano",
-            "Status": "Pendente de Implementação"
-        },
-        "tables": [],
-        "plots": []
-    }
+print ("Fazano aqui")
