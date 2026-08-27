@@ -8,7 +8,7 @@ from statsmodels.tsa.seasonal import seasonal_decompose
 def run_feature(df, params=None):
     """
     Tarefa 33: Decomposição de Séries Temporais
-    Aluno Responsável: Aluno 33
+    Aluno Responsável: Aluno 33 Ronaldo
 
     Realiza a decomposição de uma série temporal em:
     - Tendência
