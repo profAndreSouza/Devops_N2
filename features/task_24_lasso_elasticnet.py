@@ -9,7 +9,7 @@ Instruções para o Aluno (Juliana Karla Camargo Da Silva):
 3. Desenvolva sua lógica utilizando Python, Pandas, Scikit-learn, Plotly, etc.
 4. Retorne um dicionário no formato exato:
    {
-       "title": "Tarefa 24 - Regressão Lasso & ElasticNet",
+       "title": " Tarefa 24 - Regressão Lasso & ElasticNet",
        "description": "Explicação breve do que seu código realizou.",
        "metrics": {"Métrica 1": valor1, "Métrica 2": valor2},
        "tables": [df_resultado.to_html(classes="table table-striped")],
