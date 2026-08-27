@@ -21,6 +21,7 @@ def run_feature(df, params=None):
     params = params or {}
     
     # TODO (João Carlos Aparecido Dos Reis Junior): Desenvolva aqui a lógica da sua funcionalidade.
+    # OK
     
     return {
         "title": "Tarefa 22 - Regressão Linear & Ridge",
