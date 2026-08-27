@@ -1,7 +1,7 @@
 """
 Tarefa 35: Nuvem de Palavras (WordCloud)
 Módulo: Tópicos Especiais
-Aluno Responsável: Samuel David Cardia Rabisquim
+Aluno Responsável:  Samuel David Cardia Rabisquim
 
 Instruções para o Aluno (Samuel David Cardia Rabisquim):
 1. Utilize o DataFrame `df` recebido como parâmetro de entrada.
