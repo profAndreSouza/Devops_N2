@@ -1,7 +1,7 @@
 """
 Tarefa 36: Análise de Sentimento em Texto
 Módulo: Tópicos Especiais
-Aluno Responsável: Vinícius Pereira De Souza
+Aluno Responsável: Vinícius Pereira De Souza - Aluno(a) Responsável
 
 Instruções para o Aluno (Vinícius Pereira De Souza):
 1. Utilize o DataFrame `df` recebido como parâmetro de entrada.
