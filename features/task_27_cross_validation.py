@@ -113,38 +113,4 @@ def run_feature(df, params=None):
             yaxis_title=scoring.upper(), template="plotly_dark"
         )
 
-        # 5) Diagnóstico simples
-        gap = train_mean[-1] - val_mean[-1]
-        if gap > 0.15:
-            diagnostico = "Possível overfitting (treino muito acima da validação)."
-        elif val_mean[-1] < 0.55:
-            diagnostico = "Possível underfitting (desempenho baixo em geral)."
-        else:
-            diagnostico = "Modelo com boa generalização."
-
-        return {
-            "title": "Validação Cruzada (K-Fold) e Curvas de Aprendizado",
-            "description": (
-                f"Validação cruzada K-Fold (k={k}) e curva de aprendizado para um modelo "
-                f"de {'classificação' if is_clf else 'regressão'} usando a coluna-alvo "
-                f"'{target_col}'."
-            ),
-            "metrics": {
-                "Tipo de Problema": "Classificação" if is_clf else "Regressão",
-                "Métrica": scoring,
-                f"{scoring.upper()} Médio (K-Fold)": round(float(fold_scores.mean()), 4),
-                f"Desvio Padrão ({scoring})": round(float(fold_scores.std()), 4),
-                "Diagnóstico": diagnostico,
-            },
-            "tables": [fold_table.to_html(classes="table table-striped", index=False)],
-            "plots": [fig_folds.to_json(), fig_lc.to_json()],
-        }
-
-    except Exception as e:
-        return {
-            "title": "Validação Cruzada (K-Fold) e Curvas de Aprendizado",
-            "description": f"Erro ao processar a tarefa: {str(e)}",
-            "metrics": {"Status": "Erro de Execução"},
-            "tables": [],
-            "plots": [],
-        }
+        
