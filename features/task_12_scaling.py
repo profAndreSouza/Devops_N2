@@ -32,3 +32,5 @@ def run_feature(df, params=None):
         "tables": [],
         "plots": []
     }
+
+print ("hello word")

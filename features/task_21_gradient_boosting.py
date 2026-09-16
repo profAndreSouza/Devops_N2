@@ -30,5 +30,5 @@ def run_feature(df, params=None):
             "Status": "Pendente de Implementação"
         },
         "tables": [],
-        "plots": []
+        "plots": [ ]
     }

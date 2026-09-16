@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 # Definir as 37 tarefas com metadados e os nomes reais dos alunos
 TASKS_METADATA = [
+    {"id": 0, "filename": "task_00_nothing", "title": "Violin Plot", "student": "Antigravity", "module": "Ingestão & Limpeza", "description": "Validação de schema, identificação de tipos primitivos e contagem de nulos."},
     {"id": 1, "filename": "task_01_upload_schema", "title": "Inspeção de Schema & Tipos de Dados", "student": "Ahslam Mendes Monteiro Dias", "module": "Ingestão & Limpeza", "description": "Validação de schema, identificação de tipos primitivos e contagem de nulos."},
     {"id": 2, "filename": "task_02_missing_values", "title": "Tratamento de Valores Ausentes", "student": "Anthony Pais Dos Santos", "module": "Ingestão & Limpeza", "description": "Imputação de valores nulos utilizando Média, Mediana, Moda e KNN Imputer."},
     {"id": 3, "filename": "task_03_outliers", "title": "Detecção e Filtro de Outliers", "student": "Arthur Faria E Silva", "module": "Ingestão & Limpeza", "description": "Identificação de anomalias estatísticas via Z-Score e Intervalo Interquartil (IQR)."},

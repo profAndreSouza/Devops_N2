@@ -1,34 +1,87 @@
-"""
-Tarefa 06: Estatísticas Descritivas & Perfil
-Módulo: EDA & Estatística
-Aluno Responsável: Enrico Emanuel Proenca Batista
+import pandas as pd
+import plotly.express as px
 
-Instruções para o Aluno (Enrico Emanuel Proenca Batista):
-1. Utilize o DataFrame `df` recebido como parâmetro de entrada.
-2. Objetivo: Calcular tabelas de estatísticas descritivas (média, desvio padrão, percentis).
-3. Desenvolva sua lógica utilizando Python, Pandas, Scikit-learn, Plotly, etc.
-4. Retorne um dicionário no formato exato:
-   {
-       "title": "Tarefa 06 - Estatísticas Descritivas & Perfil",
-       "description": "Explicação breve do que seu código realizou.",
-       "metrics": {"Métrica 1": valor1, "Métrica 2": valor2},
-       "tables": [df_resultado.to_html(classes="table table-striped")],
-       "plots": [figura_plotly.to_json()]
-   }
-"""
 
 def run_feature(df, params=None):
     params = params or {}
-    
-    # TODO (Enrico Emanuel Proenca Batista): Desenvolva aqui a lógica da sua funcionalidade.
-    
+
+    # Identificar as colunas numéricas
+    numeric_cols = df.select_dtypes(include="number").columns.tolist()
+
+    # Remover colunas que são apenas identificadores
+    numeric_cols = [
+        col for col in numeric_cols
+        if col not in ["passenger_id", "id"]
+    ]
+
+    # Caso não existam variáveis numéricas
+    if not numeric_cols:
+        return {
+            "title": "Tarefa 06 - Estatísticas Descritivas & Perfil",
+            "description": (
+                "O dataset não possui variáveis numéricas suficientes "
+                "para realizar a análise estatística."
+            ),
+            "metrics": {
+                "Quantidade de Linhas": len(df),
+                "Quantidade de Colunas": len(df.columns),
+                "Variáveis Numéricas": 0,
+                "Valores Ausentes": int(df.isna().sum().sum())
+            },
+            "tables": [],
+            "plots": []
+        }
+
+    # Calcular estatísticas descritivas
+    df_resultado = df[numeric_cols].describe().T
+
+    # Adicionar assimetria
+    df_resultado["skewness"] = df[numeric_cols].skew()
+
+    # Adicionar curtose
+    df_resultado["kurtosis"] = df[numeric_cols].kurtosis()
+
+    # Arredondar os valores
+    df_resultado = df_resultado.round(2)
+
+    # Criar métricas gerais
+    metrics = {
+        "Quantidade de Linhas": len(df),
+        "Quantidade de Colunas": len(df.columns),
+        "Variáveis Numéricas": len(numeric_cols),
+        "Valores Ausentes": int(df.isna().sum().sum())
+    }
+
+    # Criar tabela HTML
+    table_html = df_resultado.to_html(
+        classes="table table-striped"
+    )
+
+    # Criar gráfico
+    plots = []
+
+    coluna = numeric_cols[0]
+
+    fig = px.histogram(
+        df,
+        x=coluna,
+        title=f"Distribuição da variável {coluna}"
+    )
+
+    plots.append(fig.to_json())
+
     return {
         "title": "Tarefa 06 - Estatísticas Descritivas & Perfil",
-        "description": "Atividade aguardando implementação pelo(a) aluno(a) Enrico Emanuel Proenca Batista.",
-        "metrics": {
-            "Aluno Responsável": "Enrico Emanuel Proenca Batista",
-            "Status": "Pendente de Implementação"
-        },
-        "tables": [],
-        "plots": []
+
+        "description": (
+            "Análise estatística descritiva das variáveis numéricas "
+            "do dataset, incluindo medidas de tendência central, "
+            "dispersão, percentis, assimetria e curtose."
+        ),
+
+        "metrics": metrics,
+
+        "tables": [table_html],
+
+        "plots": plots
     }
